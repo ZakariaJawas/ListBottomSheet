@@ -1,8 +1,8 @@
 package com.zak.listbottomsheetproject
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.zak.listbottomsheet.ListBottomSheet
 import com.zak.listbottomsheet.model.ListBottomSheetModel
 
@@ -22,5 +22,10 @@ class MainActivity : AppCompatActivity() {
         }.show()
     }
 }
+
+/*
+    git tag -a 1.0 -m "v1.0"
+    git push origin 1.0
+*/
 
 data class Category(val id: Int, override var name: String): ListBottomSheetModel
