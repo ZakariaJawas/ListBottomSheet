@@ -1,0 +1,3 @@
+rootProject.name='ListBottomSheetProject'
+include ':app'
+include ':listbottomsheet'
