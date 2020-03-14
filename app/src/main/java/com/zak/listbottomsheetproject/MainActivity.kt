@@ -1,10 +1,9 @@
 package com.zak.listbottomsheetproject
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.zak.listbottomsheet.ListBottomSheet
-import com.zak.listbottomsheet.model.ListBottomSheetModel
+import com.zak.listbottomsheet.NameField
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,13 +12,22 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val mList = listOf(Category(1, "Cat1"), Category(2, "Cat2"), Category(3, "Cat3"))
+        val listSheet = ListBottomSheet.Builder<Category>(this)
+            .list(mList)
+            .title("Choose one")
+            .itemLayout(R.layout.custome_list_item)
+            .onChooseItemCallback { sheet: ListBottomSheet<Category>, category: Category, position: Int ->
+                sheet.dismiss() //hide the dialog
 
-        ListBottomSheet(this, "Choose One", mList) {
-            sheet: ListBottomSheet, item: ListBottomSheetModel, _: Int ->
 
-            sheet.dismiss()
-            Toast.makeText(this, "Item ${item.name} is chosen", Toast.LENGTH_LONG).show()
-        }.show()
+            }
+            .build()
+
+//        listSheet.titleAlignment = Gravity.RIGHT //to change title text alignment
+//        listSheet.titleSize = 18F //to change title text size
+//        listSheet.titleColor = ContextCompat.getColor(this, R.color.colorPrimary) //to change title text color
+
+        listSheet.show()
     }
 }
 
@@ -28,4 +36,4 @@ class MainActivity : AppCompatActivity() {
     git push origin 1.0
 */
 
-data class Category(val id: Int, override var name: String): ListBottomSheetModel
+data class Category(val id: Int, @NameField var name: String)
