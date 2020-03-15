@@ -1,6 +1,6 @@
 # ListBottomSheet
 
-![Release](https://img.shields.io/github/release/zakariajawas/ListBottomSheet) ![Licence](https://img.shields.io/github/license/ZakariaJawas/ListBottomSheet) ![Downloads](https://img.shields.io/github/downloads/zakariajawas/ListBottomSheet/total)
+![Tag](https://img.shields.io/github/v/tag/ZakariaJawas/ListBottomSheet) ![Licence](https://img.shields.io/github/license/ZakariaJawas/ListBottomSheet) ![Downloads](https://img.shields.io/github/downloads/zakariajawas/ListBottomSheet/total)
 	
 ## Installation
 Add Jitpack to your repositories in your project level `build.gradle` file
@@ -18,7 +18,7 @@ Add the below to your dependencies, in your `build.gradle` file
 
 
 ```
-implementation 'com.github.ZakariaJawas:ListBottomSheet:{version}'
+implementation 'com.github.ZakariaJawas:ListBottomSheet:{tag}'
 
 ```
 
