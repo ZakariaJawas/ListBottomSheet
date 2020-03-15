@@ -4,17 +4,31 @@ import android.content.Context
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.zak.listbottomsheet.adapter.ListAdapter
+import kotlinx.android.synthetic.main.bottom_sheet_list_layout.view.*
 
+/**
+ * ListBottomSheet class
+ * a class that displays list of items as a bottom sheet
+ * @param T the type of the model that will be returned by the sheet
+ * @builder used to build the sheet
+ * @property title the title of the sheet
+ * @property titleColor the color of the title
+ * @property titleSize the size of the title
+ * @property titleAlignment the alignment of the sheet title
+ */
 class ListBottomSheet<T : Any> private constructor(
     private val mContext: Context,
     private val _title: String,
     private val mList: List<T>?,
     private val layoutResource: Int = R.layout.bottom_sheet_list_item,
+    private val cancelable: Boolean = true,
+    private var cancelButtonVisibility: Boolean = false,
     private val onChooseItem: ((ListBottomSheet<T>, T, Int) -> Unit)?
 ) : BottomSheetDialog(mContext) {
 
@@ -25,19 +39,23 @@ class ListBottomSheet<T : Any> private constructor(
         private lateinit var mList: List<T>
         private var layoutResource: Int = R.layout.bottom_sheet_list_item
         private var onChooseItem: ((ListBottomSheet<T>, T, Int) -> Unit)? = null
+        private var cancelable: Boolean = true
+        private var cancelButtonVisibility: Boolean = false
+
 
         fun title(title: String) = apply { this.title = title }
         fun list(mList: List<T>) = apply { this.mList = mList }
         fun itemLayout(layoutResource: Int) = apply { this.layoutResource = layoutResource }
         fun onChooseItemCallback(onChooseItem: (ListBottomSheet<T>, T, Int) -> Unit) =
             apply { this.onChooseItem = onChooseItem }
-
-        fun build() = ListBottomSheet(mContext, title, mList, layoutResource, onChooseItem)
+        fun cancelable(cancelable: Boolean) = apply { this.cancelable = cancelable }
+        fun cancelButtonVisible(cancelButtonVisibility: Boolean) = apply { this.cancelButtonVisibility = cancelButtonVisibility }
+        fun build() = ListBottomSheet(mContext, title, mList, layoutResource, cancelable, cancelButtonVisibility, onChooseItem)
     }
 
     private var mAdapter: ListAdapter? = null
-    var recyclerView: RecyclerView? = null
-    var bottomSheetView: View = LayoutInflater.from(mContext).inflate(R.layout.bottom_sheet_list_layout, null)
+    private var recyclerView: RecyclerView? = null
+    private var bottomSheetView: View = LayoutInflater.from(mContext).inflate(R.layout.bottom_sheet_list_layout, null)
 
     var title: String = _title
         set(value) {
@@ -65,12 +83,14 @@ class ListBottomSheet<T : Any> private constructor(
         }
 
     init {
+
         bottomSheetView.findViewById<TextView>(R.id.lblTitle).text = _title
         this.setContentView(bottomSheetView)
+        setCancelable(cancelable)
 
         //get the @NameField values from the list
-        var fieldValue = ""
-        var isNameFieldFound = false
+        var fieldValue = "" //used to get the value from T model
+        var isNameFieldFound = false //found indicator
 
         val valuesList: List<String> = mList!!.map {
             //get the value of @NameField
@@ -90,7 +110,17 @@ class ListBottomSheet<T : Any> private constructor(
             fieldValue
         }
 
+        //hide cancel button if false
+        if (cancelButtonVisibility) {
+            bottomSheetView.findViewById<ImageView>(R.id.imgCancel).setOnClickListener {
+                dismiss()
+            }
+        } else {
+            bottomSheetView.findViewById<ImageView>(R.id.imgCancel).visibility = View.GONE
+        }//end if
 
+
+        //fill the adapter
         mAdapter = ListAdapter(mContext, valuesList, layoutResource) { _, position ->
 
             onChooseItem?.also {

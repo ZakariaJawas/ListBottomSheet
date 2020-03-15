@@ -36,7 +36,7 @@ class ListAdapter(
 
         val item = mList[position]
         holder.setOnClickListener(item, onChooseItem)
-        holder.lblName?.text = item
+        holder.lblName.text = item
 
     }
 
