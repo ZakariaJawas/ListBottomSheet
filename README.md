@@ -2,6 +2,12 @@
 
 ![Tag](https://img.shields.io/github/v/tag/ZakariaJawas/ListBottomSheet) ![Licence](https://img.shields.io/github/license/ZakariaJawas/ListBottomSheet) ![Downloads](https://img.shields.io/github/downloads/zakariajawas/ListBottomSheet/total)
 	
+## Next Release v1.1.0
+
+- [ ] Searchable list
+- [ ] Selected item indicator
+
+
 ## Installation
 Add Jitpack to your repositories in your project level `build.gradle` file
 
