@@ -108,7 +108,7 @@ default value `false`
 used to hide or show the close button in the sheet
 
 ## Compatibility
-Minimum Android SDK: API level 19
+Minimum Android SDK: API level 16
 
 ## Author
 Zakaria Jawas [@zakariajawas](https://twitter.com/zakariajawas)
