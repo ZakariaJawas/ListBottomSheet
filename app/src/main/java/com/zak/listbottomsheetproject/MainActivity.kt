@@ -1,6 +1,7 @@
 package com.zak.listbottomsheetproject
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.zak.listbottomsheet.ListBottomSheet
 import com.zak.listbottomsheet.NameField
@@ -18,9 +19,11 @@ class MainActivity : AppCompatActivity() {
 //            .itemLayout(R.layout.custom_list_item) //to set a custom layout for list items instead of the default one
             .onChooseItemCallback { sheet: ListBottomSheet<Category>, category: Category, position: Int ->
                 sheet.dismiss() //hide the dialog
+                Log.d("##chosen_cat", category.name)
             }
             .cancelable(false) //prevent the sheet from being canceled by clicking outside the sheet
             .cancelButtonVisible(true) //show the cancel button
+            .searchable(true)
             .build()
 
 //        listSheet.titleAlignment = Gravity.RIGHT //to change title text alignment
