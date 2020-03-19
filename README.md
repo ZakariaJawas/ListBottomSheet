@@ -4,7 +4,7 @@
 	
 ## Next Release v1.1.0
 
-- [ ] Searchable list
+- [x] Searchable list
 - [ ] Selected item indicator
 
 
