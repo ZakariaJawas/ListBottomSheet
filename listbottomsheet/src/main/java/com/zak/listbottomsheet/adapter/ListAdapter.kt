@@ -1,6 +1,7 @@
 package com.zak.listbottomsheet.adapter
 
 import android.content.Context
+import android.graphics.Typeface
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,9 +17,30 @@ class ListAdapter(
     private val mContext: Context,
     var mList: MutableList<ListItem>,
     private val layoutResource: Int,
+    private val defaultItemColor: Int,
+    private val selectedItemColor: Int,
     private val onChooseItem: (ListItem) -> Unit
 ) :
     RecyclerView.Adapter<ListAdapter.ViewHolder>(), Filterable{
+
+
+    var oldSelectedItem = -1
+    var selectedItem: Int = -1
+        set(value) {
+
+            if (value == -1 || value >= mList.size) {
+                return
+            }
+
+            if (oldSelectedItem != -1) {
+                mList[oldSelectedItem].isSelected = false
+                notifyItemChanged(oldSelectedItem)
+            } //end if
+
+            mList[value].isSelected = true
+            oldSelectedItem = value
+            notifyItemChanged(value)
+        }
 
     var listFiltered = mList.toMutableList()
 
@@ -43,6 +65,16 @@ class ListAdapter(
         val item = listFiltered[position]
         holder.setOnClickListener(item, onChooseItem)
         holder.lblName.text = item.title
+
+        if (item.isSelected) {
+
+            holder.lblName.setTextColor(selectedItemColor)
+            holder.lblName.setTypeface(holder.lblName.typeface, Typeface.BOLD)
+        } else {
+
+            holder.lblName.setTextColor(defaultItemColor)
+            holder.lblName.typeface = Typeface.DEFAULT
+        }
     }
 
 
