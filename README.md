@@ -1,7 +1,13 @@
 # ListBottomSheet
 
-![Tag](https://img.shields.io/github/v/tag/ZakariaJawas/ListBottomSheet) ![Licence](https://img.shields.io/github/license/ZakariaJawas/ListBottomSheet) ![Downloads](https://img.shields.io/github/downloads/zakariajawas/ListBottomSheet/total)
+![Tag](https://img.shields.io/github/v/tag/ZakariaJawas/ListBottomSheet) ![Licence](https://img.shields.io/github/license/ZakariaJawas/ListBottomSheet) ![Stars](https://img.shields.io/github/stars/ZakariaJawas/ListBottomSheet)
 	
+## Next Release v1.1.0
+
+- [x] Searchable list
+- [ ] Selected item indicator
+
+
 ## Installation
 Add Jitpack to your repositories in your project level `build.gradle` file
 
@@ -76,13 +82,19 @@ used to change the alignment of the title
 
 used to change the size of the title
 
-ex: `listSheet.titleSize = 18F`
+ex: 
+```kotlin
+listSheet.titleSize = 18F
+```
 
 **_titleColor_**
 
 used to change the color of the title
 
-ex: `listSheet.titleColor = ContextCompat.getColor(this, R.color.colorPrimary)`
+ex: 
+```kotlin
+listSheet.titleColor = ContextCompat.getColor(this, R.color.colorPrimary)
+```
 
 ## Customization
 
@@ -92,7 +104,10 @@ You can use the following functions with the builder to customize the list sheet
 
 used to pass a custom item layout instead of the default layout provided by the library
 
-ex ```kotlin .itemLayout(R.layout.custom_list_item)```
+ex:
+```kotlin
+.itemLayout(R.layout.custom_list_item)
+```
 
 make sure there is a `TextView` with id `textView` so the sheet can display the titles in the list
 
@@ -108,7 +123,7 @@ default value `false`
 used to hide or show the close button in the sheet
 
 ## Compatibility
-Minimum Android SDK: API level 19
+Minimum Android SDK: API level 16
 
 ## Author
 Zakaria Jawas [@zakariajawas](https://twitter.com/zakariajawas)
