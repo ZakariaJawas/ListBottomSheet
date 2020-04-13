@@ -31,9 +31,9 @@ class ListBottomSheet<T : Any> private constructor(
     private val _title: String,
     private val mList: List<T>?,
     private val layoutResource: Int = R.layout.bottom_sheet_list_item,
-    private val cancelable: Boolean = true,
-    private var cancelButtonVisibility: Boolean = false,
-    private val searchable: Boolean = false,
+    private val cancelable: Boolean,
+    private var cancelButtonVisibility: Boolean,
+    private val searchable: Boolean,
     private var _selectedItemIndex: Int,
     private val onChooseItem: ((ListBottomSheet<T>, T, Int) -> Unit)?,
     private val selectedItemColor: Int
@@ -49,7 +49,7 @@ class ListBottomSheet<T : Any> private constructor(
         private var cancelable: Boolean = true
         private var cancelButtonVisibility: Boolean = false
         private var searchable: Boolean = false
-        private var selectedItemIndex: Int = -1 //no selected item as deafult
+        private var selectedItemIndex: Int = -1 //no selected item as default
         private var selectedItemColor: Int = Color.BLACK //black color
 
         fun title(title: String) = apply { this.title = title }
