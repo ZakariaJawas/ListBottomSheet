@@ -33,13 +33,15 @@ implementation 'com.github.ZakariaJawas:ListBottomSheet:{tag}'
 ## Preview
 _Basic_
 
-![BasicListSheet](https://github.com/ZakariaJawas/ListBottomSheet/blob/master/Screenshot_1586762142.png)
+<img src="https://github.com/ZakariaJawas/ListBottomSheet/blob/master/Screenshot_1586762142.png" height="600">
 
 _Searchable_
-![SearchableListSheet](https://github.com/ZakariaJawas/ListBottomSheet/blob/master/Screenshot_1586760454.png)
+
+<img src="https://github.com/ZakariaJawas/ListBottomSheet/blob/master/Screenshot_1586760454.png" height="600">
 
 _Selected Item_
-![SelectedItemListSheet](https://github.com/ZakariaJawas/ListBottomSheet/blob/master/Screenshot_1586760585.png)
+
+<img src="https://github.com/ZakariaJawas/ListBottomSheet/blob/master/Screenshot_1586760585.png" height="600">
 
 ## Usage
 
