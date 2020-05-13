@@ -2,10 +2,12 @@
 
 ![Tag](https://img.shields.io/github/v/tag/ZakariaJawas/ListBottomSheet) ![Licence](https://img.shields.io/github/license/ZakariaJawas/ListBottomSheet) ![Stars](https://img.shields.io/github/stars/ZakariaJawas/ListBottomSheet)
 	
-## Next Release v1.1.0
+## Next Release v1.2.0
+- [ ] Multiple selection list
 
+## Release v1.1.0
 - [x] Searchable list
-- [ ] Selected item indicator
+- [x] Selected item indicator
 
 
 ## Installation
@@ -29,8 +31,17 @@ implementation 'com.github.ZakariaJawas:ListBottomSheet:{tag}'
 ```
 
 ## Preview
+_Basic_
 
-![ListSheet](https://github.com/ZakariaJawas/ListBottomSheet/blob/master/Screenshot%20from%202020-03-15%2018-17-15.png)
+<img src="https://github.com/ZakariaJawas/ListBottomSheet/blob/master/Screenshot_1586762142.png" height="600">
+
+_Searchable_
+
+<img src="https://github.com/ZakariaJawas/ListBottomSheet/blob/master/Screenshot_1586760454.png" height="600">
+
+_Selected Item_
+
+<img src="https://github.com/ZakariaJawas/ListBottomSheet/blob/master/Screenshot_1586760585.png" height="600">
 
 ## Usage
 
@@ -82,7 +93,6 @@ used to change the alignment of the title
 
 used to change the size of the title
 
-ex: 
 ```kotlin
 listSheet.titleSize = 18F
 ```
@@ -91,9 +101,16 @@ listSheet.titleSize = 18F
 
 used to change the color of the title
 
-ex: 
 ```kotlin
 listSheet.titleColor = ContextCompat.getColor(this, R.color.colorPrimary)
+```
+
+**_selectedItemIndex_**
+
+used to change the selected item in the list at any time in the code
+
+```kotlin
+listSheet.selectedItemIndex = 2
 ```
 
 ## Customization
@@ -104,7 +121,6 @@ You can use the following functions with the builder to customize the list sheet
 
 used to pass a custom item layout instead of the default layout provided by the library
 
-ex:
 ```kotlin
 .itemLayout(R.layout.custom_list_item)
 ```
@@ -121,6 +137,29 @@ used to allow or prevent the sheet from being dismissed by clicking outside the 
 default value `false`
 
 used to hide or show the close button in the sheet
+
+**_selectedItemColor(Int)_**
+
+param Int is **color integer** value not **color resource id**
+
+used to change the deafult selected item color, default value (BLACK)
+
+```kotlin
+.selectedItemColor(ContextCompat.getColor(this, R.color.colorAccent))
+```
+
+**_selectedItemIndex(Int)_**
+
+used to build the sheet with initial selected item in the list, default value `-1` means no selected item
+
+```kotlin
+.selectedItemIndex(2)
+```
+
+**_searchable(Boolean)_**
+default value `false`
+
+used to enable the search functionality in the bottom sheet
 
 ## Compatibility
 Minimum Android SDK: API level 16
