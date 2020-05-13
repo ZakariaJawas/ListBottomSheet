@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
+import android.view.WindowManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -210,5 +211,10 @@ class ListBottomSheet<T : Any> private constructor(
 
         })
 
+    }
+
+    override fun show() {
+        super.show()
+        window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN) //hide keyboard when the sheet is open
     }
 }
