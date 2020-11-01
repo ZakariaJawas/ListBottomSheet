@@ -8,6 +8,7 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -37,11 +38,12 @@ class ListBottomSheet<T : Any> private constructor(
     private val searchable: Boolean,
     private var _selectedItemIndex: Int,
     private val onChooseItem: ((ListBottomSheet<T>, T, Int) -> Unit)?,
-    private val selectedItemColor: Int
+    private val selectedItemColor: Int,
+    private val onActionCallback: ((ListBottomSheet<T>) -> Unit)?,
+    private val actionButtonTitle: String?
 ) : BottomSheetDialog(mContext) {
 
     class Builder<T : Any>(private val mContext: Context) {
-
 
         private lateinit var title: String
         private lateinit var mList: List<T>
@@ -52,6 +54,8 @@ class ListBottomSheet<T : Any> private constructor(
         private var searchable: Boolean = false
         private var selectedItemIndex: Int = -1 //no selected item as default
         private var selectedItemColor: Int = Color.BLACK //black color
+        private var onActionCallback: ((ListBottomSheet<T>) -> Unit)? = null
+        private var actionButtonTitle: String = ""
 
         fun title(title: String) = apply { this.title = title }
         fun list(mList: List<T>) = apply { this.mList = mList }
@@ -67,6 +71,14 @@ class ListBottomSheet<T : Any> private constructor(
         fun selectedItemColor(selectedItemColor: Int) =
             apply { this.selectedItemColor = selectedItemColor }
 
+        fun setOnActionCallback(onActionCallback: (ListBottomSheet<T>) -> Unit) = apply {
+            this.onActionCallback = onActionCallback
+        }
+
+        fun setActionButtonTitle(actionButtonTitle: String) = apply {
+            this.actionButtonTitle = actionButtonTitle
+        }
+
         fun build() = ListBottomSheet(
             mContext,
             title,
@@ -77,7 +89,9 @@ class ListBottomSheet<T : Any> private constructor(
             searchable,
             selectedItemIndex,
             onChooseItem,
-            selectedItemColor
+            selectedItemColor,
+            onActionCallback,
+            actionButtonTitle
         )
     }
 
@@ -180,6 +194,16 @@ class ListBottomSheet<T : Any> private constructor(
         recyclerView?.adapter = mAdapter
 
         setSelectedItem()
+
+        onActionCallback?.also { callback ->
+            bottomSheetView.findViewById<Button>(R.id.btnAction).apply {
+                visibility = View.VISIBLE
+                title = actionButtonTitle ?: "Ok"
+                setOnClickListener {
+                    callback(this@ListBottomSheet)
+                }
+            }
+        }
     }
 
     private fun setSelectedItem() {

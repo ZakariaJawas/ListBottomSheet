@@ -2,6 +2,7 @@ package com.zak.listbottomsheetproject
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.zak.listbottomsheet.ListBottomSheet
 import com.zak.listbottomsheet.NameField
@@ -27,6 +28,11 @@ class MainActivity : AppCompatActivity() {
             .searchable(true)
 //          .selectedItemColor(ContextCompat.getColor(this, R.color.colorAccent)) //set the selected item color
 //          .selectedItemIndex(0) //initial the list with selected item
+//            .setActionButtonTitle("Continue")
+//            .setOnActionCallback {
+//                Toast.makeText(this, "On Action Button Clicked", Toast.LENGTH_SHORT).show()
+//                it.dismiss()
+//            }
             .build()
 
 //        listSheet.titleAlignment = Gravity.RIGHT //to change title text alignment
