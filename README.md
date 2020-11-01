@@ -1,6 +1,6 @@
 # ListBottomSheet
 
-![Tag](https://img.shields.io/github/v/tag/ZakariaJawas/ListBottomSheet) ![Licence](https://img.shields.io/github/license/ZakariaJawas/ListBottomSheet) ![Stars](https://img.shields.io/github/stars/ZakariaJawas/ListBottomSheet)
+![Tag](https://img.shields.io/github/v/tag/ZakariaJawas/ListBottomSheet) [![jitpack](https://jitpack.io/v/ZakariaJawas/ListBottomSheet.svg)](https://jitpack.io/#ZakariaJawas/ListBottomSheet) ![Licence](https://img.shields.io/github/license/ZakariaJawas/ListBottomSheet) ![Stars](https://img.shields.io/github/stars/ZakariaJawas/ListBottomSheet)
 	
 ## Next Release v1.3.0
 - [ ] Multiple selection list
