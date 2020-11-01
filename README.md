@@ -4,6 +4,7 @@
 	
 ## Next Release v1.2.0
 - [ ] Multiple selection list
+- [x] Adding action button
 
 ## Release v1.1.0
 - [x] Searchable list
@@ -53,7 +54,7 @@ for exmaple
 ```kotlin
 data class Category(val id: Int, @NameField var name: String)
 ```
-make sure you annotate your title field in the model class with @NameField otherwise **UnspecifiedFieldNameExpection** will be thrown
+make sure to annotate your title field in your model class with @NameField otherwise **UnspecifiedFieldNameExpection** will be thrown
 
 **_Step 2_**
 Build the sheet
@@ -159,6 +160,21 @@ used to build the sheet with initial selected item in the list, default value `-
 default value `false`
 
 used to enable the search functionality in the bottom sheet
+
+**setActionButtonTitle(String)_**
+
+used to change the action button title, default value `Ok`
+
+**setOnActionCallback(ListBottomSheet)_**
+
+this is a callback for the action button click listener, it will return an instance of the current sheet so it can be dismissed
+
+```kotlin
+.setOnActionCallback {
+                Toast.makeText(this, "On Action Button Clicked", Toast.LENGTH_SHORT).show()
+                it.dismiss()
+            }
+```
 
 ## Compatibility
 Minimum Android SDK: API level 16
