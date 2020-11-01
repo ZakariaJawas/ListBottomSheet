@@ -2,13 +2,13 @@
 
 ![Tag](https://img.shields.io/github/v/tag/ZakariaJawas/ListBottomSheet) ![Licence](https://img.shields.io/github/license/ZakariaJawas/ListBottomSheet) ![Stars](https://img.shields.io/github/stars/ZakariaJawas/ListBottomSheet)
 	
-## Next Release v1.2.0
+## Next Release v1.3.0
 - [ ] Multiple selection list
-- [x] Adding action button
 
-## Release v1.1.0
+## Release v1.2.3
 - [x] Searchable list
 - [x] Selected item indicator
+- [x] Adding action button
 
 
 ## Installation
