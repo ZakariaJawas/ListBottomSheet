@@ -26,8 +26,7 @@ Add the below to your dependencies, in your `build.gradle` file
 
 
 ```
-implementation 'com.github.ZakariaJawas:ListBottomSheet:{tag}'
-
+implementation 'com.github.ZakariaJawas:ListBottomSheet:Tag'
 ```
 
 ## Preview
