@@ -28,11 +28,11 @@ class MainActivity : AppCompatActivity() {
             .searchable(true)
 //          .selectedItemColor(ContextCompat.getColor(this, R.color.colorAccent)) //set the selected item color
 //          .selectedItemIndex(0) //initial the list with selected item
-//            .setActionButtonTitle("Continue")
-//            .setOnActionCallback {
-//                Toast.makeText(this, "On Action Button Clicked", Toast.LENGTH_SHORT).show()
-//                it.dismiss()
-//            }
+            .setActionButtonTitle("Continue")
+            .setOnActionCallback {
+                Toast.makeText(this, "On Action Button Clicked", Toast.LENGTH_SHORT).show()
+                it.dismiss()
+            }
             .build()
 
 //        listSheet.titleAlignment = Gravity.RIGHT //to change title text alignment

@@ -197,8 +197,8 @@ class ListBottomSheet<T : Any> private constructor(
 
         onActionCallback?.also { callback ->
             bottomSheetView.findViewById<Button>(R.id.btnAction).apply {
+                text = actionButtonTitle ?: "OK"
                 visibility = View.VISIBLE
-                title = actionButtonTitle ?: "Ok"
                 setOnClickListener {
                     callback(this@ListBottomSheet)
                 }
