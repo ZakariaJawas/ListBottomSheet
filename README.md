@@ -5,6 +5,10 @@
 ## Next Release v1.3.0
 - [ ] Multiple selection list
 
+## Release v1.2.4
+- [x] Search field hint can be changed
+- [x] You can set custom font for the list items
+
 ## Release v1.2.3
 - [x] Searchable list
 - [x] Selected item indicator
@@ -175,6 +179,24 @@ this is a callback for the action button click listener, it will return an insta
                 it.dismiss()
             }
 ```
+
+**setSearchHint(String)_**
+
+used to change the search field hint text, deafult value `Search`
+
+**.setCustomTypeface(Typeface)_**
+
+used to change the list items font, default value is the current system font
+
+to change the font of the list items, first create a typeface 
+
+```kotlin
+val typeface = Typeface.createFromAsset(applicationContext.assets, "font/roboto_bold.ttf")
+```
+
+then pass the typeface to the function **setCustomTypeface**
+
+**note: if you use Calligraphy library to change the whole app font, all views inside the bottom list sheet view will be changed as well except the list items which you will have to use this function to do so**
 
 ## Compatibility
 Minimum Android SDK: API level 16
