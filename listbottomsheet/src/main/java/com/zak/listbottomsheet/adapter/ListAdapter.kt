@@ -19,6 +19,7 @@ class ListAdapter(
     private val layoutResource: Int,
     private val defaultItemColor: Int,
     private val selectedItemColor: Int,
+    private val typeface: Typeface?,
     private val onChooseItem: (ListItem) -> Unit
 ) :
     RecyclerView.Adapter<ListAdapter.ViewHolder>(), Filterable{
@@ -69,11 +70,15 @@ class ListAdapter(
         if (item.isSelected) {
 
             holder.lblName.setTextColor(selectedItemColor)
-            holder.lblName.setTypeface(holder.lblName.typeface, Typeface.BOLD)
+//            holder.lblName.setTypeface(holder.lblName.typeface, Typeface.BOLD)
         } else {
 
             holder.lblName.setTextColor(defaultItemColor)
-            holder.lblName.typeface = Typeface.DEFAULT
+//            holder.lblName.typeface = Typeface.DEFAULT
+        }
+
+        typeface?.also {
+            holder.lblName.typeface = it
         }
     }
 

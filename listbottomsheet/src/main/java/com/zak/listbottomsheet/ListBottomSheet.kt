@@ -2,6 +2,7 @@ package com.zak.listbottomsheet
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Typeface
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.TypedValue
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.zak.listbottomsheet.adapter.ListAdapter
+import kotlinx.android.synthetic.main.bottom_sheet_list_layout.view.*
 
 /**
  * ListBottomSheet class
@@ -40,7 +42,9 @@ class ListBottomSheet<T : Any> private constructor(
     private val onChooseItem: ((ListBottomSheet<T>, T, Int) -> Unit)?,
     private val selectedItemColor: Int,
     private val onActionCallback: ((ListBottomSheet<T>) -> Unit)?,
-    private val actionButtonTitle: String?
+    private val actionButtonTitle: String?,
+    private val searchHint: String?,
+    private val customTypeface: Typeface?
 ) : BottomSheetDialog(mContext) {
 
     class Builder<T : Any>(private val mContext: Context) {
@@ -56,6 +60,8 @@ class ListBottomSheet<T : Any> private constructor(
         private var selectedItemColor: Int = Color.BLACK //black color
         private var onActionCallback: ((ListBottomSheet<T>) -> Unit)? = null
         private var actionButtonTitle: String = ""
+        private var searchHint: String = "Search"
+        private var customTypeface: Typeface? = null
 
         fun title(title: String) = apply { this.title = title }
         fun list(mList: List<T>) = apply { this.mList = mList }
@@ -79,6 +85,14 @@ class ListBottomSheet<T : Any> private constructor(
             this.actionButtonTitle = actionButtonTitle
         }
 
+        fun setSearchHint(hint: String) = apply {
+            this.searchHint = hint
+        }
+
+        fun setCustomTypeface(typeface: Typeface) = apply {
+            this.customTypeface = typeface
+        }
+
         fun build() = ListBottomSheet(
             mContext,
             title,
@@ -91,7 +105,9 @@ class ListBottomSheet<T : Any> private constructor(
             onChooseItem,
             selectedItemColor,
             onActionCallback,
-            actionButtonTitle
+            actionButtonTitle,
+            searchHint,
+            customTypeface
         )
     }
 
@@ -178,7 +194,8 @@ class ListBottomSheet<T : Any> private constructor(
             valuesList.toMutableList(),
             layoutResource,
             defaultItemColor,
-            selectedItemColor
+            selectedItemColor,
+            customTypeface
         ) { item ->
 
             onChooseItem?.also {
@@ -204,6 +221,13 @@ class ListBottomSheet<T : Any> private constructor(
                 }
             }
         }
+
+        bottomSheetView.txtSearch.hint = searchHint
+        customTypeface?.also {
+            bottomSheetView.txtSearch.typeface = it
+            bottomSheetView.btnAction.typeface = it
+        }
+        bottomSheetView.txtSearch
     }
 
     private fun setSelectedItem() {

@@ -1,5 +1,6 @@
 package com.zak.listbottomsheetproject
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -13,6 +14,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+//        val typeface = Typeface.createFromAsset(applicationContext.assets, "font/roboto_bold.ttf")
 
         val mList = listOf(Category(1, "Category 1"), Category(2, "Category 2"), Category(3, "Category 3"))
         val listSheet = ListBottomSheet.Builder<Category>(this)
@@ -33,6 +36,8 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "On Action Button Clicked", Toast.LENGTH_SHORT).show()
                 it.dismiss()
             }
+//            .setSearchHint("Search here") //change search text hint
+//            .setCustomTypeface(typeface) //change list items font
             .build()
 
 //        listSheet.titleAlignment = Gravity.RIGHT //to change title text alignment
