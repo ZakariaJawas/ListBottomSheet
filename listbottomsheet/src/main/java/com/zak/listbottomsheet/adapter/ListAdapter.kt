@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zak.listbottomsheet.ListItem
 import com.zak.listbottomsheet.R
+import java.util.*
 
 class ListAdapter(
     private val mContext: Context,
@@ -106,7 +107,8 @@ class ListAdapter(
 
                     mList.filter {
                         Log.d("##charSeq", "search in ${it.title}")
-                        it.title.toLowerCase().contains(charSequence.toString().toLowerCase())
+                        it.title.lowercase(Locale.getDefault()).contains(charSequence.toString()
+                            .lowercase(Locale.getDefault()))
                     }.toMutableList()
                 }
 
