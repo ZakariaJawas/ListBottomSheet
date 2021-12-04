@@ -2,8 +2,8 @@
 
 ![Tag](https://img.shields.io/github/v/tag/ZakariaJawas/ListBottomSheet) [![jitpack](https://jitpack.io/v/ZakariaJawas/ListBottomSheet.svg)](https://jitpack.io/#ZakariaJawas/ListBottomSheet) ![Licence](https://img.shields.io/github/license/ZakariaJawas/ListBottomSheet) ![Stars](https://img.shields.io/github/stars/ZakariaJawas/ListBottomSheet)
 	
-## Next Release v1.3.0
-- [ ] Multiple selection list
+## Release v1.3.0
+- [x] Multiple selection list
 
 ## Release v1.2.4
 - [x] Search field hint can be changed
@@ -60,6 +60,7 @@ data class Category(val id: Int, @NameField var name: String)
 ```
 make sure to annotate your title field in your model class with @NameField otherwise **UnspecifiedFieldNameExpection** will be thrown
 
+
 **_Step 2_**
 Build the sheet
 
@@ -73,6 +74,7 @@ Build the sheet
             }            
             .build()        
 ```
+
 
 **_Step 3_**
 Show the list sheet
@@ -93,6 +95,7 @@ used to change the alignment of the title
 | Gravity.LEFT   |
 | Gravity.CENTER |
 
+
 **_titleSize_**
 
 used to change the size of the title
@@ -100,6 +103,7 @@ used to change the size of the title
 ```kotlin
 listSheet.titleSize = 18F
 ```
+
 
 **_titleColor_**
 
@@ -109,6 +113,7 @@ used to change the color of the title
 listSheet.titleColor = ContextCompat.getColor(this, R.color.colorPrimary)
 ```
 
+
 **_selectedItemIndex_**
 
 used to change the selected item in the list at any time in the code
@@ -116,6 +121,7 @@ used to change the selected item in the list at any time in the code
 ```kotlin
 listSheet.selectedItemIndex = 2
 ```
+
 
 ## Customization
 
@@ -137,20 +143,36 @@ default value `true`
 
 used to allow or prevent the sheet from being dismissed by clicking outside the sheet
 
+
 **_cancelButtonVisible(Boolean)_**
 default value `false`
 
 used to hide or show the close button in the sheet
 
+
 **_selectedItemColor(Int)_**
 
 param Int is **color integer** value not **color resource id**
 
-used to change the deafult selected item color, default value (BLACK)
+used to change the default selected item color, default value (BLACK)
 
 ```kotlin
 .selectedItemColor(ContextCompat.getColor(this, R.color.colorAccent))
 ```
+
+
+**_selectedItemBackgroundColor(Int)_**
+
+note: this property available only for **MultiListBottomSheet**
+
+param Int is **color integer** value not **color resource id**
+
+used to change the default selected item background color, default value (Light Grey)
+
+```kotlin
+.selectedItemBackgroundColor(ContextCompat.getColor(this, R.color.lightGrey))
+```
+
 
 **_selectedItemIndex(Int)_**
 
@@ -160,14 +182,17 @@ used to build the sheet with initial selected item in the list, default value `-
 .selectedItemIndex(2)
 ```
 
+
 **_searchable(Boolean)_**
 default value `false`
 
 used to enable the search functionality in the bottom sheet
 
+
 **setActionButtonTitle(String)_**
 
 used to change the action button title, default value `Ok`
+
 
 **setOnActionCallback(ListBottomSheet)_**
 
@@ -180,9 +205,26 @@ this is a callback for the action button click listener, it will return an insta
             }
 ```
 
+
+For **MultiListBottomSheet** use this
+
+**setOnActionCallback(MultiListBottomSheet, List)_**
+
+this is a callback for the action button click listener, it will return an instance of the current sheet so it can be dismissed and a list of the selected items
+
+```kotlin
+.setOnActionCallback {	
+	sheet, selectedItems ->
+	Toast.makeText(this, "${selectedItems.size} items selected", Toast.LENGTH_SHORT).show()
+	sheet.dismiss()
+    }
+```
+
+
 **setSearchHint(String)_**
 
-used to change the search field hint text, deafult value `Search`
+used to change the search field hint text, default value `Search`
+
 
 **.setCustomTypeface(Typeface)_**
 
@@ -195,6 +237,7 @@ val typeface = Typeface.createFromAsset(applicationContext.assets, "font/roboto_
 ```
 
 then pass the typeface to the function **setCustomTypeface**
+
 
 **note: if you use Calligraphy library to change the whole app font, all views inside the bottom list sheet view will be changed as well except the list items which you will have to use this function to do so**
 
