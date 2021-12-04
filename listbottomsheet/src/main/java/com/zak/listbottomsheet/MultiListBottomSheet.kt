@@ -3,10 +3,13 @@ package com.zak.listbottomsheet
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
+import android.graphics.drawable.ColorDrawable
+import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +19,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.zak.listbottomsheet.adapter.ListAdapter
+import com.zak.listbottomsheet.adapter.MultiListAdapter
+//import kotlinx.android.synthetic.main.bottom_sheet_list_layout.view.*
 
 /**
  * ListBottomSheet class
@@ -29,7 +33,7 @@ import com.zak.listbottomsheet.adapter.ListAdapter
  * @property titleAlignment the alignment of the sheet title
  * @property selectedItemIndex the current selected item of the list
  */
-class ListBottomSheet<T : Any> private constructor(
+class MultiListBottomSheet<T : Any> private constructor(
     private val mContext: Context,
     private val _title: String,
     private val mList: List<T>?,
@@ -38,10 +42,10 @@ class ListBottomSheet<T : Any> private constructor(
     private var cancelButtonVisibility: Boolean,
     private val searchable: Boolean,
     private var _selectedItemIndex: Int,
-    private val onChooseItem: ((ListBottomSheet<T>, T, Int) -> Unit)?,
+    private val onChooseItem: ((MultiListBottomSheet<T>, T, Int) -> Unit)?,
     private val selectedItemColor: Int,
-    private val selectedItemBackColor: Int,
-    private val onActionCallback: ((ListBottomSheet<T>) -> Unit)?,
+    private val selectedItemBackgroundColor: Int,
+    private val onActionCallback: ((MultiListBottomSheet<T>, List<T>) -> Unit)?,
     private val actionButtonTitle: String?,
     private val searchHint: String?,
     private val customTypeface: Typeface?
@@ -52,14 +56,14 @@ class ListBottomSheet<T : Any> private constructor(
         private lateinit var title: String
         private lateinit var mList: List<T>
         private var layoutResource: Int = R.layout.bottom_sheet_list_item
-        private var onChooseItem: ((ListBottomSheet<T>, T, Int) -> Unit)? = null
+        private var onChooseItem: ((MultiListBottomSheet<T>, T, Int) -> Unit)? = null
         private var cancelable: Boolean = true
         private var cancelButtonVisibility: Boolean = false
         private var searchable: Boolean = false
         private var selectedItemIndex: Int = -1 //no selected item as default
         private var selectedItemColor: Int = Color.BLACK //black color
-        private var selectedItemBackColor: Int = Color.LTGRAY
-        private var onActionCallback: ((ListBottomSheet<T>) -> Unit)? = null
+        private var selectedItemBackgroundColor: Int = Color.LTGRAY
+        private var onActionCallback: ((MultiListBottomSheet<T>, List<T>) -> Unit)? = null
         private var actionButtonTitle: String = ""
         private var searchHint: String = "Search"
         private var customTypeface: Typeface? = null
@@ -67,7 +71,7 @@ class ListBottomSheet<T : Any> private constructor(
         fun title(title: String) = apply { this.title = title }
         fun list(mList: List<T>) = apply { this.mList = mList }
         fun itemLayout(layoutResource: Int) = apply { this.layoutResource = layoutResource }
-        fun onChooseItemCallback(onChooseItem: (ListBottomSheet<T>, T, Int) -> Unit) =
+        fun onChooseItemCallback(onChooseItem: (MultiListBottomSheet<T>, T, Int) -> Unit) =
             apply { this.onChooseItem = onChooseItem }
         fun cancelable(cancelable: Boolean) = apply { this.cancelable = cancelable }
         fun cancelButtonVisible(cancelButtonVisibility: Boolean) = apply { this.cancelButtonVisibility = cancelButtonVisibility }
@@ -78,7 +82,10 @@ class ListBottomSheet<T : Any> private constructor(
         fun selectedItemColor(selectedItemColor: Int) =
             apply { this.selectedItemColor = selectedItemColor }
 
-        fun setOnActionCallback(onActionCallback: (ListBottomSheet<T>) -> Unit) = apply {
+        fun selectedItemBackgroundColor(selectedItemBackgroundColor: Int) =
+            apply { this.selectedItemBackgroundColor = selectedItemBackgroundColor }
+
+        fun setOnActionCallback(onActionCallback: (MultiListBottomSheet<T>, List<T>) -> Unit) = apply {
             this.onActionCallback = onActionCallback
         }
 
@@ -94,7 +101,7 @@ class ListBottomSheet<T : Any> private constructor(
             this.customTypeface = typeface
         }
 
-        fun build() = ListBottomSheet(
+        fun build() = MultiListBottomSheet(
             mContext,
             title,
             mList,
@@ -105,7 +112,7 @@ class ListBottomSheet<T : Any> private constructor(
             selectedItemIndex,
             onChooseItem,
             selectedItemColor,
-            selectedItemBackColor,
+            selectedItemBackgroundColor,
             onActionCallback,
             actionButtonTitle,
             searchHint,
@@ -113,7 +120,7 @@ class ListBottomSheet<T : Any> private constructor(
         )
     }
 
-    private var mAdapter: ListAdapter? = null
+    private var mAdapter: MultiListAdapter? = null
     private var recyclerView: RecyclerView? = null
     private var txtSearch: EditText? = null
     private var btnAction: Button? = null
@@ -144,11 +151,11 @@ class ListBottomSheet<T : Any> private constructor(
             field = value
         }
 
-    var selectedItemIndex: Int = _selectedItemIndex
-        set(value) {
-            mAdapter?.selectedItem = value
-            field = value
-        }
+//    var selectedItemIndex: Int = _selectedItemIndex
+//        set(value) {
+//            mAdapter?.selectedItem = value
+//            field = value
+//        }
 
 
     init {
@@ -189,22 +196,27 @@ class ListBottomSheet<T : Any> private constructor(
         }//end if
 
 
-        val defaultItemColor = LayoutInflater.from(context).inflate(layoutResource, null)
-            .findViewById<TextView>(R.id.textView).currentTextColor
+        val textView =  LayoutInflater.from(context).inflate(layoutResource, null)
+            .findViewById<TextView>(R.id.textView)
+
+        val defaultItemColor = textView.currentTextColor
+        val defaultItemBackgroundColor = (textView.background as? ColorDrawable)?.color ?: Color.parseColor("#00000000")
 
         //fill the adapter
-        mAdapter = ListAdapter(
+        mAdapter = MultiListAdapter(
             mContext,
             valuesList.toMutableList(),
             layoutResource,
             defaultItemColor,
             selectedItemColor,
+            selectedItemBackgroundColor,
+            defaultItemBackgroundColor,
             customTypeface
         ) { item ->
 
             onChooseItem?.also {
-                selectedItemIndex = item.position
-                setSelectedItem()
+//                selectedItemIndex = item.position
+//                setSelectedItem()
                 it(this, mList[item.position], item.position)
             }
         }
@@ -219,14 +231,21 @@ class ListBottomSheet<T : Any> private constructor(
         txtSearch = bottomSheetView.findViewById(R.id.txtSearch)
         btnAction = bottomSheetView.findViewById(R.id.btnAction)
 
-        setSelectedItem()
+//        setSelectedItem()
 
         onActionCallback?.also { callback ->
-            bottomSheetView.findViewById<Button>(R.id.btnAction).apply {
+            btnAction?.apply {
                 text = actionButtonTitle ?: "OK"
                 visibility = View.VISIBLE
                 setOnClickListener {
-                    callback(this@ListBottomSheet)
+                    //return list of the selected items
+                    val selectedItems = (recyclerView?.adapter as MultiListAdapter).selectedItemsList.toList()
+                    Log.d("##items in sheet", "size ${selectedItems.size}")
+                    val resultList = mutableListOf<T>()
+                    repeat(selectedItems.size) {
+                        resultList.add(mList[it])
+                    }
+                    callback(this@MultiListBottomSheet, resultList)
                 }
             }
         }
@@ -236,11 +255,12 @@ class ListBottomSheet<T : Any> private constructor(
             txtSearch?.typeface = it
             btnAction?.typeface = it
         }
+
     }
 
-    private fun setSelectedItem() {
-        mAdapter?.selectedItem = this.selectedItemIndex
-    }
+//    private fun setSelectedItem() {
+////        mAdapter?.selectedItem = this.selectedItemIndex
+//    }
 
     private fun setSearchable(searchable: Boolean) {
 
@@ -270,7 +290,6 @@ class ListBottomSheet<T : Any> private constructor(
     }
 
     override fun show() {
-
         window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN) //hide keyboard when the sheet is open
 
         Handler(Looper.getMainLooper()).postDelayed({
