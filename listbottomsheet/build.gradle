@@ -35,15 +35,25 @@ android {
         publishing {
             publications {
                 release(MavenPublication) {
-                    artifactId "$project.name"
+                    artifactId "final"
                     from components.release
                     groupId = 'com.github.zakariajawas'
-                    version = 'v1.3.0'
+                    version = '1.3.4'
+                }
+                debug(MavenPublication) {
+                    artifactId "final-debug"
+                    from components.debug
+                    groupId = 'com.github.zakariajawas'
+                    version = '1.3.4'
                 }
             }
         }
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
 }
 
 dependencies {
