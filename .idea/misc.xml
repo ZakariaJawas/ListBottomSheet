@@ -9,8 +9,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.35025641025641024" />
+        <entry key="listbottomsheet/src/main/res/drawable/rounded_background.xml" value="0.33611111111111114" />
         <entry key="listbottomsheet/src/main/res/layout/bottom_sheet_list_item.xml" value="0.35025641025641024" />
-        <entry key="listbottomsheet/src/main/res/layout/bottom_sheet_list_layout.xml" value="0.35025641025641024" />
+        <entry key="listbottomsheet/src/main/res/layout/bottom_sheet_list_layout.xml" value="0.33" />
         <entry key="listbottomsheet/src/main/res/layout/bottom_sheet_multi_list_layout.xml" value="0.35572916666666665" />
       </map>
     </option>

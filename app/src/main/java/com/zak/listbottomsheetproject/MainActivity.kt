@@ -63,7 +63,6 @@ class MainActivity : AppCompatActivity() {
             .cancelButtonVisible(true) //show the cancel button
             .searchable(true)
 //          .selectedItemColor(ContextCompat.getColor(this, R.color.colorAccent)) //set the selected item color
-//          .selectedItemIndex(0) //initial the list with selected item
             .selectedItemBackgroundColor(ContextCompat.getColor(this, R.color.lightGrey))
             .setActionButtonTitle("Continue")
             .setOnActionCallback {

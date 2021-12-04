@@ -31,7 +31,6 @@ import com.zak.listbottomsheet.adapter.MultiListAdapter
  * @property titleColor the color of the title
  * @property titleSize the size of the title
  * @property titleAlignment the alignment of the sheet title
- * @property selectedItemIndex the current selected item of the list
  */
 class MultiListBottomSheet<T : Any> private constructor(
     private val mContext: Context,
@@ -41,7 +40,6 @@ class MultiListBottomSheet<T : Any> private constructor(
     private val cancelable: Boolean,
     private var cancelButtonVisibility: Boolean,
     private val searchable: Boolean,
-    private var _selectedItemIndex: Int,
     private val onChooseItem: ((MultiListBottomSheet<T>, T, Int) -> Unit)?,
     private val selectedItemColor: Int,
     private val selectedItemBackgroundColor: Int,
@@ -60,7 +58,6 @@ class MultiListBottomSheet<T : Any> private constructor(
         private var cancelable: Boolean = true
         private var cancelButtonVisibility: Boolean = false
         private var searchable: Boolean = false
-        private var selectedItemIndex: Int = -1 //no selected item as default
         private var selectedItemColor: Int = Color.BLACK //black color
         private var selectedItemBackgroundColor: Int = Color.LTGRAY
         private var onActionCallback: ((MultiListBottomSheet<T>, List<T>) -> Unit)? = null
@@ -76,8 +73,7 @@ class MultiListBottomSheet<T : Any> private constructor(
         fun cancelable(cancelable: Boolean) = apply { this.cancelable = cancelable }
         fun cancelButtonVisible(cancelButtonVisibility: Boolean) = apply { this.cancelButtonVisibility = cancelButtonVisibility }
         fun searchable(searchable: Boolean) = apply { this.searchable = searchable }
-        fun selectedItemIndex(selectedItemIndex: Int) =
-            apply { this.selectedItemIndex = selectedItemIndex }
+
 
         fun selectedItemColor(selectedItemColor: Int) =
             apply { this.selectedItemColor = selectedItemColor }
@@ -109,7 +105,6 @@ class MultiListBottomSheet<T : Any> private constructor(
             cancelable,
             cancelButtonVisibility,
             searchable,
-            selectedItemIndex,
             onChooseItem,
             selectedItemColor,
             selectedItemBackgroundColor,
@@ -150,12 +145,6 @@ class MultiListBottomSheet<T : Any> private constructor(
             bottomSheetView.findViewById<TextView>(R.id.lblTitle).gravity = value
             field = value
         }
-
-//    var selectedItemIndex: Int = _selectedItemIndex
-//        set(value) {
-//            mAdapter?.selectedItem = value
-//            field = value
-//        }
 
 
     init {
@@ -215,8 +204,6 @@ class MultiListBottomSheet<T : Any> private constructor(
         ) { item ->
 
             onChooseItem?.also {
-//                selectedItemIndex = item.position
-//                setSelectedItem()
                 it(this, mList[item.position], item.position)
             }
         }
@@ -257,10 +244,6 @@ class MultiListBottomSheet<T : Any> private constructor(
         }
 
     }
-
-//    private fun setSelectedItem() {
-////        mAdapter?.selectedItem = this.selectedItemIndex
-//    }
 
     private fun setSearchable(searchable: Boolean) {
 
