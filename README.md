@@ -2,7 +2,7 @@
 
 ![Tag](https://img.shields.io/github/v/tag/ZakariaJawas/ListBottomSheet) [![jitpack](https://jitpack.io/v/ZakariaJawas/ListBottomSheet.svg)](https://jitpack.io/#ZakariaJawas/ListBottomSheet) ![Licence](https://img.shields.io/github/license/ZakariaJawas/ListBottomSheet) ![Stars](https://img.shields.io/github/stars/ZakariaJawas/ListBottomSheet)
 	
-## Release v1.3.7
+## Release 1.3.7
 - [x] Multiple selection list
 
 ## Release v1.2.4
@@ -31,7 +31,7 @@ Add the below to your dependencies, in your `build.gradle` file
 
 
 ```
-implementation 'com.github.ZakariaJawas:ListBottomSheet:Tag'
+implementation 'com.github.ZakariaJawas:ListBottomSheet:1.3.7'
 ```
 
 ## Preview
