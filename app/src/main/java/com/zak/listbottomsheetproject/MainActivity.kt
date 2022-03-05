@@ -84,6 +84,11 @@ class MainActivity : AppCompatActivity() {
             multiListSheet.show()
         }
 
+        btnClearMultiSheet.setOnClickListener {
+
+            multiListSheet.clearSelectedItems()
+        }
+
     }
 }
 

@@ -14,7 +14,6 @@ import com.zak.listbottomsheet.ListItem
 import com.zak.listbottomsheet.R
 import java.util.*
 
-
 class MultiListAdapter(
     private val mContext: Context,
     var mList: MutableList<ListItem>,
@@ -30,7 +29,6 @@ class MultiListAdapter(
     val selectedItemsList = mutableListOf<ListItem>()
     var listFiltered = mList.toMutableList()
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         val view = LayoutInflater.from(mContext).inflate(
@@ -38,11 +36,9 @@ class MultiListAdapter(
             parent,
             false
         )
-
         return ViewHolder(view, selectedItemColor, defaultItemColor, selectedItemBackgroundColor, defaultItemBackgroundColor)
     }
-
-
+    
     override fun getItemCount(): Int {
         return listFiltered.size
     }
@@ -58,7 +54,6 @@ class MultiListAdapter(
             holder.lblName.typeface = it
         }
     }
-
 
     class ViewHolder(itemView: View,private val selectedColor: Int,
                      private val defaultItemColor: Int,
@@ -83,14 +78,11 @@ class MultiListAdapter(
                 field = value
             }
 
-
         fun setOnClickListener(instance: MultiListAdapter, item: ListItem, listener: (ListItem) -> Unit) {
             itemView.setOnClickListener {
                 if (!instance.selectedItemsList.remove(item)) { //if remove return false means it doesn't exists so add it to the list
-                    Log.d("##item", " will be added")
                     instance.selectedItemsList.add(item)
                 } //end if
-                Log.d("##item", " size ${instance.selectedItemsList.size}")
                 instance.notifyItemChanged(adapterPosition)
                 listener(item)
             }
@@ -107,7 +99,6 @@ class MultiListAdapter(
                 } else {
 
                     mList.filter {
-                        Log.d("##charSeq", "search in ${it.title}")
                         it.title.lowercase(Locale.getDefault()).contains(charSequence.toString()
                             .lowercase(Locale.getDefault()))
                     }.toMutableList()
@@ -122,7 +113,6 @@ class MultiListAdapter(
                 listFiltered = filterResults?.values as MutableList<ListItem>
                 notifyDataSetChanged()
             }
-
         }
     }
 }

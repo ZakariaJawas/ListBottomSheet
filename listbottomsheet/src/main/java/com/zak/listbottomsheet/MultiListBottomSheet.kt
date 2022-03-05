@@ -242,34 +242,30 @@ class MultiListBottomSheet<T : Any> private constructor(
             txtSearch?.typeface = it
             btnAction?.typeface = it
         }
-
     }
 
     private fun setSearchable(searchable: Boolean) {
 
         if (!searchable) {
             return
-        }
+        } //end if
 
         //display the search view
         bottomSheetView.findViewById<View>(R.id.searchContainer).visibility = View.VISIBLE
+
         //bind txtSearch watcher listener
         bottomSheetView.findViewById<EditText>(R.id.txtSearch).addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
             }
 
             override fun onTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
                 mAdapter?.filter?.filter(charSequence)
             }
-
         })
-
     }
 
     override fun show() {
@@ -284,5 +280,12 @@ class MultiListBottomSheet<T : Any> private constructor(
 
         }, 0)
         super.show()
+    }
+
+    fun clearSelectedItems() {
+        (recyclerView?.adapter as? MultiListAdapter)?.also {
+            it.selectedItemsList.clear()
+            it.notifyDataSetChanged()
+        }
     }
 }
