@@ -67,6 +67,7 @@ class MainActivity : AppCompatActivity() {
             .setActionButtonTitle("Continue")
             .setOnActionCallback {
                 sheet, selectedItems ->
+
                 Toast.makeText(this, "On Action Button Clicked With ${selectedItems.size} items selected", Toast.LENGTH_SHORT).show()
                 sheet.dismiss()
             }

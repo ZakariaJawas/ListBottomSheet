@@ -227,10 +227,10 @@ class MultiListBottomSheet<T : Any> private constructor(
                 setOnClickListener {
                     //return list of the selected items
                     val selectedItems = (recyclerView?.adapter as MultiListAdapter).selectedItemsList.toList()
-                    Log.d("##items in sheet", "size ${selectedItems.size}")
+
                     val resultList = mutableListOf<T>()
                     repeat(selectedItems.size) {
-                        resultList.add(mList[it])
+                        resultList.add(mList[selectedItems[it].position])
                     }
                     callback(this@MultiListBottomSheet, resultList)
                 }
